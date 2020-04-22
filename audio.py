@@ -48,7 +48,7 @@ while True:
     ax1.grid(b=True)
 
     ax2.clear()
-    ax2.bar(np.arange(bands.shape),
+    ax2.bar(np.arange(bands.shape[0]),
             bands,
             tick_label=[str(cf) for cf in oc_bands])
     if np.max(bands) > mx2:
@@ -57,7 +57,6 @@ while True:
     ax2.grid(b=True)
     fig.canvas.draw()
 
-    time.sleep(0.01)
     plt.pause(0.001)
     # TODO: translate to duty cycles
 
