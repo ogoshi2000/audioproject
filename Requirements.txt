@@ -1,0 +1,4 @@
+PyAudio==0.2.11
+scipy==1.4.1
+sounddevice==0.3.15
+
