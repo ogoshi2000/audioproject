@@ -24,8 +24,6 @@ stream = p.open(format=sample_format,
                 frames_per_buffer=chunk,
                 input=True)
 
-frames = []  # Initialize array to store frames
-
 # Store data in chunks for 3 seconds
 fig = plt.figure(1)
 ax1 = fig.add_subplot(211)
@@ -50,7 +48,7 @@ while True:
     ax1.grid(b=True)
 
     ax2.clear()
-    ax2.bar(np.arange(bands.shape[0]),
+    ax2.bar(np.arange(bands.shape),
             bands,
             tick_label=[str(cf) for cf in oc_bands])
     if np.max(bands) > mx2:
@@ -59,7 +57,7 @@ while True:
     ax2.grid(b=True)
     fig.canvas.draw()
 
-    time.sleep(1)
+    time.sleep(0.01)
     plt.pause(0.001)
     # TODO: translate to duty cycles
 
