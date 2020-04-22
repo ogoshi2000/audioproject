@@ -8,7 +8,7 @@ def dBFS(x):
     return 10*np.log10(x)
 
 
-chunk = 2048  # Record in chunks of 1024 samples
+chunk = 4096  # Record in chunks of 1024 samples
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 fs = 44100  # Record at 44100 samples per second
@@ -43,7 +43,7 @@ while True:
     fourier_data = np.fft.rfft(data)
 
     for i, idx in enumerate(fidx):
-        bands[i] = dBFS(np.sqrt(np.mean(abs(fourier_data[idx])**2, axis=-1)))
+        bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
 
     ax1.clear()
     ax1.plot(data)
@@ -55,11 +55,11 @@ while True:
             bands,
             tick_label=[str(cf) for cf in oc_bands])
 
-    ax2.set_ylim([0, mx2])
+    ax2.set_ylim([40, mx2])
     ax2.grid(b=True)
     fig.canvas.draw()
 
-    plt.pause(0.005)
+    plt.pause(0.0001)
     # TODO: translate to duty cycles
 
 p.close(stream)
