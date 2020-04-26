@@ -33,7 +33,7 @@ audio_levels = AudioLevels(BITS_PER_CHUNK, BANDS_COUNT)
 while True:
     data = stream.read(CHUNK)
     data = np.frombuffer(data, dtype=np.int16)
-    bands, _, _ = audio_levels.compute(np.float32(data), fidx)
+    bands, _, _ = audio_levels.compute(data.astype(np.float32), fidx)
     print(bands)
     time.sleep(1)
 
