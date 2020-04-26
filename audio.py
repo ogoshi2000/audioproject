@@ -5,8 +5,10 @@ import sys
 sys.path.append("../rpi_audio_levels")
 from rpi_audio_levels import AudioLevels
 
+
 def dBFS(x):
-    return 10*np.log10(x)
+    return 10 * np.log10(x)
+
 
 BITS_PER_CHUNK = 10
 CHUNK = 2**BITS_PER_CHUNK
@@ -34,5 +36,5 @@ while True:
     bands, _, _ = audio_levels.compute(data, fidx)
     print(bands)
     time.sleep(1)
-    
+
 p.close(stream)
