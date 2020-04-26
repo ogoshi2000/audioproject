@@ -2,7 +2,7 @@ import pyaudio
 import numpy as np
 import time
 import sys
-sys.path.append("../rpi_audio_levels")
+sys.path.append("../rpi-audio-levels")
 from rpi_audio_levels import AudioLevels
 
 
