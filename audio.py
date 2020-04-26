@@ -20,7 +20,7 @@ OC_BANDS = np.array([31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000])
 F = np.fft.rfftfreq(CHUNK, 1. / FS)
 fidx = []
 for cf in OC_BANDS:
-    fidx.append(list(np.where((F >= cf / np.sqrt(2)) & (F <= cf * np.sqrt(2)))))
+    fidx.append(np.where((F >= cf / np.sqrt(2)) & (F <= cf * np.sqrt(2))).tolist())
 
 p = pyaudio.PyAudio()
 stream = p.open(format=SAMPLE_FORMAT,
