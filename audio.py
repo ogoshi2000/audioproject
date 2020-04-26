@@ -1,10 +1,9 @@
 import pyaudio
 import numpy as np
 import time
-import matplotlib.pyplot as plt
-import board
-import busio
-import adafruit_pca9685
+#import board
+#import busio
+#import adafruit_pca9685
 
 #i2c = busio.I2C(board.SCL, board.SDA)
 #hat = adafruit_pca9685.PCA9685(i2c)
