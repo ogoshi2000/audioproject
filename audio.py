@@ -6,13 +6,13 @@ import board
 import busio
 import adafruit_pca9685
 
-i2c = busio.I2C(board.SCL, board.SDA)
-hat = adafruit_pca9685.PCA9685(i2c)
+#i2c = busio.I2C(board.SCL, board.SDA)
+#hat = adafruit_pca9685.PCA9685(i2c)
 
-hat.frequency=1500
-led_channel = hat.channels[0]
+#hat.frequency=1500
+#led_channel = hat.channels[0]
 
-led_channel.duty_cycle = 0
+#led_channel.duty_cycle = 0
 
 
 def dBFS(x):
@@ -50,7 +50,7 @@ stream = p.open(format=sample_format,
 # mx2 = 80
 
 val = 100
-led_channel.duty_cycle = 0
+#led_channel.duty_cycle = 0
 
 while True:
                 
@@ -68,7 +68,7 @@ while True:
         val = val_old
 
 
-    led_channel.duty_cycle = int(  (val-100)**2/(2**16 -1)  )
+    #led_channel.duty_cycle = int(  (val-100)**2/(2**16 -1)  )
     print(val)
 
     # ax1.clear()
