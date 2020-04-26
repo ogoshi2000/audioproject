@@ -68,7 +68,7 @@ while True:
 
 
     #led_channel.duty_cycle = int(  (val-100)**2/(2**16 -1)  )
-    print(val)
+    print val
 
     # ax1.clear()
     # ax1.plot(data)
