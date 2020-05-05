@@ -9,8 +9,8 @@ def dBFS(x):
 
 
 ###############################################################################
-CHUNK = 128 #
-OVERLAPS = 2  #
+CHUNK = 64  #
+OVERLAPS = 4  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
@@ -28,6 +28,7 @@ print(fidx)
 p = pyaudio.PyAudio()
 
 frames = Queue(32)
+
 
 def callback(in_data, frame_count, time_info, status):
     global frames
