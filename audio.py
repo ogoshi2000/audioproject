@@ -7,7 +7,7 @@ def dBFS(x):
     return 10 * np.log10(x)
 
 
-CHUNK = 256
+CHUNK = 512
 SAMPLE_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 FS = 48000
