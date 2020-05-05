@@ -46,24 +46,26 @@ stream = p.open(format=SAMPLE_FORMAT,
                 stream_callback=callback)
 
 curr_chunk = np.zeros(CHUNK * OVERLAPS)
-OL_IDX = [
-    i * FFTCHUNK / OVERLAPS for i in range(OVERLAPS * CHUNK / FFTCHUNK + 1)
-]
+OL_IDX = FFTCHUNK / OVERLAPS
 print(OL_IDX)
 start = time.time()
 try:
     while True:
         frame = frames.get()
-        for i, j in zip(OL_IDX, OL_IDX[1:]):
-            curr_chunk = np.concatenate(
-                [curr_chunk[FFTCHUNK / OVERLAPS:], frame[i:j]])
-            for k, idx in enumerate(fidx):
-                fourier_data = scipy.fftpack.fft(curr_chunk)
-                bands[k] = dBFS(
-                    np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
-            if int(time.time() - start) == 30:
-                start = time.time()
-                print(frames.qsize() * float(CHUNK) / FS)
+        curr_chunk = np.concatenate([curr_chunk[OL_IDX:], frame[:OL_IDX]])
+        for k, idx in enumerate(fidx):
+            fourier_data = scipy.fftpack.fft(curr_chunk)
+            bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
+                                           axis=-1)))
+        curr_chunk = np.concatenate([curr_chunk[OL_IDX:], frame[OL_IDX:]])
+        for k, idx in enumerate(fidx):
+            fourier_data = scipy.fftpack.fft(curr_chunk)
+            bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
+                                           axis=-1)))
+
+        if int(time.time() - start) == 30:
+            start = time.time()
+            print(frames.qsize() * float(CHUNK) / FS)
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
