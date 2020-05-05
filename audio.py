@@ -48,7 +48,7 @@ lost = 0
 while True:
     try:
         print(frames.get())
-        sleep(1)
+        time.sleep(1)
     except KeyboardInterrupt:
         stream.close()
         p.terminate()
