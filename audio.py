@@ -47,6 +47,7 @@ stream = p.open(format=SAMPLE_FORMAT,
 
 curr_chunk = np.zeros(CHUNK * OVERLAPS)
 OL_IDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS * CHUNK / FFTCHUNK + 1)]
+print(OL_IDX)
 start = time.time()
 try:
     while True:
@@ -54,7 +55,6 @@ try:
         for i, j in zip(OL_IDX, OL_IDX[1:]):
             curr_chunk = np.concatenate(
                 [curr_chunk[FFTCHUNK / OVERLAPS:], frame[i:j]])
-            print(curr_chunk)
             for k, idx in enumerate(fidx):
                 fourier_data = scipy.fftpack.fft(curr_chunk)
                 bands[k] = dBFS(
