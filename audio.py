@@ -11,7 +11,7 @@ def dBFS(x):
 
 ###############################################################################
 FFTCHUNK = 256
-CHUNK = 1024  #
+CHUNK = 128  #
 OVERLAPS = 4  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
@@ -45,7 +45,7 @@ stream = p.open(format=SAMPLE_FORMAT,
                 input=True,
                 stream_callback=callback)
 
-curr_chunk = np.zeros(CHUNK * OVERLAPS)
+curr_chunk = np.zeros(FFTCHUNK)
 OL_IDX = FFTCHUNK / OVERLAPS
 print(OL_IDX)
 start = time.time()
