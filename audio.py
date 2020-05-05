@@ -29,7 +29,6 @@ p = pyaudio.PyAudio()
 
 frames = Queue()
 
-
 def callback(in_data, frame_count, time_info, status):
     global frames
     frames.put(np.frombuffer(in_data, dtype=np.int16))
@@ -45,7 +44,7 @@ stream = p.open(format=SAMPLE_FORMAT,
 
 curr_chunk = np.zeros(CHUNK * OVERLAPS)
 OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
-
+start = time.time()
 try:
     while True:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
@@ -59,7 +58,13 @@ except KeyboardInterrupt:
     stream.close()
     p.terminate()
     print("\n")
+    print("queue size")
     print(frames.qsize())
+    print("current delay")
+    print(frames.qsize()*CHUNK/FS)
+    print("elapsed time:")
+    print((time.time()-start))
+
     frames.close()
     print("ende wie der chris")
     quit()
