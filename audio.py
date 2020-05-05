@@ -34,14 +34,13 @@ while True:
         data = stream.read(CHUNK, exception_on_overflow=True)
     except IOError:
         lost += 1
-        print(str(lost)+'/'+str(lost))
-        
+        print(str(lost) + '/' + str(lost))
+
     data = np.frombuffer(data, dtype=np.int16)
     fourier_data = np.fft.rfft(data)
 
     for i, idx in enumerate(fidx):
         bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
-    time.sleep(1)
     print(bands)
 
 p.close(stream)
