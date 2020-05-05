@@ -4,6 +4,7 @@ import time
 from multiprocessing import Queue
 import scipy.fftpack
 
+
 def dBFS(x):
     return 10 * np.log10(x)
 
@@ -29,6 +30,7 @@ p = pyaudio.PyAudio()
 
 frames = Queue()
 
+
 def callback(in_data, frame_count, time_info, status):
     global frames
     frames.put(np.frombuffer(in_data, dtype=np.int16))
@@ -52,10 +54,8 @@ try:
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
-    print(bands)
-    if int(time.time()-start)%30 == 0:
-        print(frames.qsize()*CHUNK/FS)
-        
+        if int(time.time() - start) % 30 == 0:
+            print(frames.qsize() * CHUNK / FS)
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
@@ -65,9 +65,9 @@ except KeyboardInterrupt:
     q = frames.qsize()
     print(q)
     print("current delay")
-    print(q*CHUNK/FS)
+    print(q * CHUNK / FS)
     print("elapsed time:")
-    print((time.time()-start))
+    print((time.time() - start))
 
     frames.close()
     print("ende wie der chris")
