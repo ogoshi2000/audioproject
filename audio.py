@@ -9,8 +9,8 @@ def dBFS(x):
 
 
 ###############################################################################
-CHUNK = 256  #
-OVERLAPS = 4  #
+CHUNK = 128 #
+OVERLAPS = 2  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
@@ -23,11 +23,11 @@ fidx = []
 for cf in OC_BANDS:
     fidx.append(np.where((F >= cf / np.sqrt(2)) & (F <= cf * np.sqrt(2))))
 bands = np.zeros(OC_BANDS.shape)
+print(fidx)
 
 p = pyaudio.PyAudio()
 
 frames = Queue()
-
 
 def callback(in_data, frame_count, time_info, status):
     global frames
