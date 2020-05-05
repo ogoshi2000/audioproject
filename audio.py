@@ -27,7 +27,7 @@ stream = p.open(format=SAMPLE_FORMAT,
                 input=True)
 
 while True:
-    data = stream.read(CHUNK, exception_on_overflow=False)
+    data = stream.read(CHUNK, exception_on_overflow=True)
     data = np.frombuffer(data, dtype=np.int16)
     fourier_data = np.fft.rfft(data)
 
