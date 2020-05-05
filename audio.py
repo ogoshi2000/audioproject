@@ -1,5 +1,5 @@
 import pyaudio
-import numpy as np
+import scipy as np
 import time
 from multiprocessing import Queue
 
