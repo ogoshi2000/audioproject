@@ -53,6 +53,7 @@ except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
     p.terminate()
+    q.close()
     print("ende wie der chris")
     raise
 
