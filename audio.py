@@ -54,8 +54,9 @@ try:
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
-        if int(time.time() - start + 1) % 30 == 0:
-            print(frames.qsize() * CHUNK / FS)
+        if int(time.time() - start) == 30:
+            start = time.time()
+            print(frames.qsize() * float(CHUNK) / FS)
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
@@ -65,7 +66,7 @@ except KeyboardInterrupt:
     q = frames.qsize()
     print(q)
     print("current delay")
-    print(q * CHUNK / FS)
+    print(q * float(CHUNK) / FS)
     print("elapsed time:")
     print((time.time() - start))
 
