@@ -34,6 +34,7 @@ while True:
     for i, idx in enumerate(fidx):
         bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
 
+    print(bands)
     time.sleep(1)
 
 p.close(stream)
