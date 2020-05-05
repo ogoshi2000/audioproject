@@ -44,9 +44,16 @@ OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
 print(OLIDX)
 packets = 0
 lost = 0
-#stream.start_stream()
+
 while True:
-    print(frames.get())
+    try:
+        print(frames.get())
+        sleep(1)
+    except KeyboardInterrupt:
+        stream.close()
+        p.terminate()
+        print("ende wie der chris")
+        quit()
 # prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
 # prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
 # while True:
@@ -67,5 +74,3 @@ while True:
 #                                            axis=-1)))
 
 #     prev_chunk = curr_chunk
-
-p.close(stream)
