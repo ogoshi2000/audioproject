@@ -50,6 +50,7 @@ while True:
         print(frames.get())
         time.sleep(1)
     except KeyboardInterrupt:
+        stream.stop_stream()
         stream.close()
         p.terminate()
         print("ende wie der chris")
