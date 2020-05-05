@@ -9,8 +9,8 @@ def dBFS(x):
 
 
 ###############################################################################
-CHUNK = 128 #
-OVERLAPS = 2  #
+CHUNK = 64 #
+OVERLAPS = 4  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
@@ -52,6 +52,7 @@ try:
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
+    print(bands)
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
