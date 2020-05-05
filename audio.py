@@ -45,16 +45,16 @@ print(OLIDX)
 packets = 0
 lost = 0
 
-while True:
-    try:
+try:
+    while True:
         print(frames.get())
         time.sleep(1)
-    except KeyboardInterrupt:
-        stream.stop_stream()
-        stream.close()
-        p.terminate()
-        print("ende wie der chris")
-        quit()
+except KeyboardInterrupt:
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+    print("ende wie der chris")
+    quit()
 # prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
 # prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
 # while True:
