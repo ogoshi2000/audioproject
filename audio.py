@@ -34,7 +34,7 @@ while True:
         data = stream.read(CHUNK, exception_on_overflow=True)
     except IOError:
         lost += 1
-        print(str(lost) + '/' + str(lost))
+        print(str(lost) + '/' + str(packets))
 
     data = np.frombuffer(data, dtype=np.int16)
     fourier_data = np.fft.rfft(data)
