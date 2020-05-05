@@ -53,15 +53,19 @@ try:
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
     print(bands)
+    if int(time.time()-start)%30 == 0:
+        print(frames.qsize()*CHUNK/FS)
+        
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
     p.terminate()
     print("\n")
     print("queue size")
-    print(frames.qsize())
+    q = frames.qsize()
+    print(q)
     print("current delay")
-    print(frames.qsize()*CHUNK/FS)
+    print(q*CHUNK/FS)
     print("elapsed time:")
     print((time.time()-start))
 
