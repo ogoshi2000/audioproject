@@ -33,19 +33,20 @@ def callback(in_data, frame_count, time_info, status):
     frames.put(np.frombuffer(in_data, dtype=np.int16))
     return (in_data, pyaudio.paContinue)
 
-stream = p.open(format=SAMPLE_FORMAT,
+
+
+try:
+    stream = p.open(format=SAMPLE_FORMAT,
                 channels=CHANNELS,
                 rate=FS,
                 frames_per_buffer=CHUNK,
                 input=True,
                 stream_callback=callback)
 
-OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
-print(OLIDX)
-packets = 0
-lost = 0
-
-try:
+    OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
+    print(OLIDX)
+    packets = 0
+    lost = 0
     while True:
         print(frames.get())
         time.sleep(1)
