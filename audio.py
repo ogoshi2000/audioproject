@@ -52,11 +52,12 @@ try:
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
-        print(frames.qsize())
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
     p.terminate()
+    print("\n")
+    print(frames.qsize())
     frames.close()
     print("ende wie der chris")
     quit()
