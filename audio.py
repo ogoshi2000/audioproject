@@ -2,7 +2,7 @@ import pyaudio
 import numpy as np
 import time
 from multiprocessing import Queue
-
+import sys
 
 def dBFS(x):
     return 10 * np.log10(x)
@@ -33,10 +33,7 @@ def callback(in_data, frame_count, time_info, status):
     frames.put(np.frombuffer(in_data, dtype=np.int16))
     return (in_data, pyaudio.paContinue)
 
-
-
-try:
-    stream = p.open(format=SAMPLE_FORMAT,
+stream = p.open(format=SAMPLE_FORMAT,
                 channels=CHANNELS,
                 rate=FS,
                 frames_per_buffer=CHUNK,
@@ -47,6 +44,8 @@ try:
     print(OLIDX)
     packets = 0
     lost = 0
+
+try:
     while True:
         print(frames.get())
         time.sleep(1)
@@ -55,7 +54,7 @@ except KeyboardInterrupt:
     stream.close()
     p.terminate()
     print("ende wie der chris")
-    quit()
+    sys.exit(0)
 # prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
 # prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
 # while True:
