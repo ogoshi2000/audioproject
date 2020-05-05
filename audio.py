@@ -47,7 +47,8 @@ OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
 
 try:
     while True:
-        curr_chunk = np.concatenate([curr_chunk[:CHUNK], frames.get()])
+        curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
+        print(curr_chunk)
         fourier_data = np.fft.rfft(curr_chunk)
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
