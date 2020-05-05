@@ -10,7 +10,7 @@ def dBFS(x):
 
 
 ###############################################################################
-CHUNK = 64  #
+CHUNK = 128  #
 OVERLAPS = 4  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
