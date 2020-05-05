@@ -27,7 +27,7 @@ print(fidx)
 
 p = pyaudio.PyAudio()
 
-frames = Queue(32)
+frames = Queue()
 
 
 def callback(in_data, frame_count, time_info, status):
