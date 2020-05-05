@@ -1,7 +1,7 @@
 import pyaudio
 import numpy as np
 import time
-import queue
+from multiprocessing import Queue
 
 
 def dBFS(x):
@@ -26,7 +26,7 @@ bands = np.zeros(OC_BANDS.shape)
 
 p = pyaudio.PyAudio()
 
-frames = queue.Queue()
+frames = Queue()
 
 def callback(in_data, frame_count, time_info, status):
     global frames
