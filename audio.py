@@ -30,11 +30,12 @@ stream = p.open(format=SAMPLE_FORMAT,
                 frames_per_buffer=CHUNK,
                 input=True)
 
-prev_chunk = None
-OLIDX = [i*CHUNK/OVERLAPS for i in range(OVERLAPS)]
+OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
 print(OLIDX)
 packets = 0
 lost = 0
+prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
+prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
 while True:
     try:
         packets += 1
@@ -45,13 +46,12 @@ while True:
 
     curr_chunk = np.frombuffer(curr_chunk, dtype=np.int16)
 
-    if prev_chunk:
-        for k in OLIDX:
-            fourier_data = np.fft.rfft(
-                np.concatenate([prev_chunk[:k], curr_chunk[k:]]))
-            for i, idx in enumerate(fidx):
-                bands[i] = dBFS(
-                    np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
+    for k in OLIDX:
+        fourier_data = np.fft.rfft(
+            np.concatenate([prev_chunk[:k], curr_chunk[k:]]))
+        for i, idx in enumerate(fidx):
+            bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
+                                           axis=-1)))
 
     prev_chunk = curr_chunk
 
