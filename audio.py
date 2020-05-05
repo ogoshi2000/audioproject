@@ -54,7 +54,8 @@ except KeyboardInterrupt:
     stream.close()
     p.terminate()
     print("ende wie der chris")
-    sys.exit(0)
+    raise
+
 # prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
 # prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
 # while True:
