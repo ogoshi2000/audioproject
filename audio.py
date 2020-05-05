@@ -2,7 +2,7 @@ import pyaudio
 import numpy as np
 import time
 from multiprocessing import Queue
-import scipy.fft
+import scipy.fftpack
 
 def dBFS(x):
     return 10 * np.log10(x)
@@ -49,7 +49,7 @@ OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
 try:
     while True:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
-        fourier_data = scipy.fft.fft(curr_chunk)
+        fourier_data = scipy.fftpack.fft(curr_chunk)
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
