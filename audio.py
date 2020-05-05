@@ -54,6 +54,7 @@ try:
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
+        print(int(time.time() - start))
         if int(time.time() - start) % 30 == 0:
             print(frames.qsize() * CHUNK / FS)
 except KeyboardInterrupt:
