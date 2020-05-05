@@ -7,7 +7,7 @@ def dBFS(x):
     return 10 * np.log10(x)
 
 
-CHUNK = 256
+CHUNK = 128
 SAMPLE_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 FS = 48000
@@ -33,7 +33,7 @@ while True:
 
     for i, idx in enumerate(fidx):
         bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
-
+    time.sleep(0.01)
     print(bands)
 
 p.close(stream)
