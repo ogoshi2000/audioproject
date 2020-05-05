@@ -26,13 +26,15 @@ stream = p.open(format=SAMPLE_FORMAT,
                 frames_per_buffer=CHUNK,
                 input=True)
 
-packets_lost = 0
+packets = 0
+lost = 0
 while True:
     try:
+        packets += 1
         data = stream.read(CHUNK, exception_on_overflow=True)
     except IOError:
-        packets_lost += 1
-        print(packets_lost)
+        lost += 1
+        print(str(lost)+'/'+str(lost))
         
     data = np.frombuffer(data, dtype=np.int16)
     fourier_data = np.fft.rfft(data)
