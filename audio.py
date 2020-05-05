@@ -48,12 +48,11 @@ OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
 try:
     while True:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
-        print(curr_chunk)
         fourier_data = np.fft.rfft(curr_chunk)
         for i, idx in enumerate(fidx):
             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
-        print(bands)
+        print(frames.qsize())
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
@@ -61,24 +60,3 @@ except KeyboardInterrupt:
     frames.close()
     print("ende wie der chris")
     quit()
-
-# prev_chunk = stream.read(CHUNK, exception_on_overflow=True)
-# prev_chunk = np.frombuffer(prev_chunk, dtype=np.int16)
-# while True:
-#     try:
-#         packets += 1
-#         curr_chunk = stream.read(CHUNK, exception_on_overflow=True)
-#     except IOError:
-#         lost += 1
-#         print(str(lost) + '/' + str(packets))
-
-#     curr_chunk = np.frombuffer(curr_chunk, dtype=np.int16)
-
-#     for k in OLIDX:
-#         fourier_data = np.fft.rfft(
-#             np.concatenate([prev_chunk[:k], curr_chunk[k:]]))
-#         for i, idx in enumerate(fidx):
-#             bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
-#                                            axis=-1)))
-
-#     prev_chunk = curr_chunk
