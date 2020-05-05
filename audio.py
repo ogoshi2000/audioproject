@@ -40,10 +40,10 @@ stream = p.open(format=SAMPLE_FORMAT,
                 input=True,
                 stream_callback=callback)
 
-    OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
-    print(OLIDX)
-    packets = 0
-    lost = 0
+OLIDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS)]
+print(OLIDX)
+packets = 0
+lost = 0
 
 try:
     while True:
