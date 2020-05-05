@@ -46,7 +46,9 @@ stream = p.open(format=SAMPLE_FORMAT,
                 stream_callback=callback)
 
 curr_chunk = np.zeros(CHUNK * OVERLAPS)
-OL_IDX = [i * CHUNK / OVERLAPS for i in range(OVERLAPS * CHUNK / FFTCHUNK + 1)]
+OL_IDX = [
+    i * FFTCHUNK / OVERLAPS for i in range(OVERLAPS * CHUNK / FFTCHUNK + 1)
+]
 print(OL_IDX)
 start = time.time()
 try:
