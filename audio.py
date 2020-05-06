@@ -1,9 +1,9 @@
+from __future__ import division
 import pyaudio
 import numpy as np
 import time
 from multiprocessing import Queue
 import scipy.fftpack
-from __future__ import division
 
 
 def dBFS(x):
