@@ -1,9 +1,12 @@
 from __future__ import division
+from contextlib import contextmanager
+import sys
+import os
 import pyaudio
-import numpy as np
 import time
-from multiprocessing import Queue
+import numpy as np
 import scipy.fftpack
+from multiprocessing import Queue
 
 
 def dBFS(x):
@@ -26,8 +29,6 @@ for cf in OC_BANDS:
 bands = np.zeros(OC_BANDS.shape)
 print(fidx)
 
-p = pyaudio.PyAudio()
-
 frames = Queue()
 
 
@@ -37,12 +38,25 @@ def callback(in_data, frame_count, time_info, status):
     return (in_data, pyaudio.paContinue)
 
 
-stream = p.open(format=SAMPLE_FORMAT,
-                channels=CHANNELS,
-                rate=FS,
-                frames_per_buffer=CHUNK,
-                input=True,
-                stream_callback=callback)
+@contextmanager
+def suppress_stdout():
+    with open(os.devnull, "w") as devnull:
+        old_stdout = sys.stdout
+        sys.stdout = devnull
+        try:
+            yield
+        finally:
+            sys.stdout = old_stdout
+
+
+with suppress_stdout():
+    p = pyaudio.PyAudio()
+    stream = p.open(format=SAMPLE_FORMAT,
+                    channels=CHANNELS,
+                    rate=FS,
+                    frames_per_buffer=CHUNK,
+                    input=True,
+                    stream_callback=callback)
 
 curr_chunk = np.zeros(FFTCHUNK)
 start = time.time()
