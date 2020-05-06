@@ -1,7 +1,6 @@
 from __future__ import division
+from ctypes import c_char_p, c_int, CFUNCTYPE, cdll
 from contextlib import contextmanager
-import sys
-import os
 import pyaudio
 import time
 import numpy as np
@@ -38,18 +37,26 @@ def callback(in_data, frame_count, time_info, status):
     return (in_data, pyaudio.paContinue)
 
 
+ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int,
+                               c_char_p)
+
+
+def py_error_handler(filename, line, function, err, fmt):
+    pass
+
+
+c_error_handler = ERROR_HANDLER_FUNC(py_error_handler)
+
+
 @contextmanager
-def suppress_stdout():
-    with open(os.devnull, "w") as devnull:
-        old_stdout = sys.stdout
-        sys.stdout = devnull
-        try:
-            yield
-        finally:
-            sys.stdout = old_stdout
+def noalsaerr():
+    asound = cdll.LoadLibrary('libasound.so')
+    asound.snd_lib_error_set_handler(c_error_handler)
+    yield
+    asound.snd_lib_error_set_handler(None)
 
 
-with suppress_stdout():
+with noalsaerr():
     p = pyaudio.PyAudio()
     stream = p.open(format=SAMPLE_FORMAT,
                     channels=CHANNELS,
