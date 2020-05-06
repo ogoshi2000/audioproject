@@ -51,9 +51,7 @@ try:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
         for k, idx in enumerate(fidx):
             fourier_data = scipy.fftpack.fft(curr_chunk)
-            bands = np.zeros(8)
-            #bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
-            #                               axis=-1)))
+            bands[k] = (np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
 
         if int(time.time() - start) == 30:
             start = time.time()
