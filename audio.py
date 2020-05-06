@@ -15,8 +15,7 @@ CHUNK = 128  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
-OC_BANDS = np.array([31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000,
-                     16000])  #
+OC_BANDS = np.array([0, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000])  #
 ###############################################################################
 
 F = np.fft.rfftfreq(FFTCHUNK, 1. / FS)
@@ -56,8 +55,9 @@ try:
 
         if int(time.time() - start) == 30:
             start = time.time()
-            print("\ncurrent delay: %i ms" % int(frames.qsize() * float(CHUNK) / FS*1000))
-            print(bands)
+            print("\ncurrent delay: %.1f ms" % frames.qsize() * float(CHUNK) /
+                  FS * 1000)
+            print(bands, round(decimals=2))
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
