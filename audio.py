@@ -55,8 +55,8 @@ try:
 
         if int(time.time() - start) == 30:
             start = time.time()
-            print("\ncurrent delay: %.1f ms" % frames.qsize() * float(CHUNK) /
-                  FS * 1000)
+            print("\ncurrent delay: %.1f ms" % float(frames.qsize()) * float(CHUNK) /
+                  FS * 1000.)
             print(bands, round(decimals=2))
 except KeyboardInterrupt:
     stream.stop_stream()
