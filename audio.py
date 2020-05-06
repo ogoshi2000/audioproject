@@ -50,7 +50,7 @@ try:
     while True:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
         for k, idx in enumerate(fidx):
-            fourier_data = scipy.fftpack.fft(curr_chunk)
+            fourier_data = np.fft.rfft(curr_chunk)
             bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
                                            axis=-1)))
 
