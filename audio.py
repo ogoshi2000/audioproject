@@ -19,12 +19,13 @@ CHANNELS = 1  #
 FS = 48000  #
 OC_BANDS = np.array([0, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000])  #
 ###############################################################################
-
 F = np.fft.rfftfreq(FFTCHUNK, 1. / FS)
 fidx = []
 for cf in OC_BANDS:
     fidx.append(np.where((F >= cf / np.sqrt(2)) & (F <= cf * np.sqrt(2))))
 bands = np.zeros(OC_BANDS.shape)
+
+frames = Queue()
 
 
 def callback(in_data, frame_count, time_info, status):
@@ -42,7 +43,7 @@ stream = p.open(format=SAMPLE_FORMAT,
                 stream_callback=callback)
 
 os.system("printf '\033c'")
-frames = Queue()
+
 curr_chunk = np.zeros(FFTCHUNK)
 start = time.time()
 try:
