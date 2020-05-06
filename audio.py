@@ -11,8 +11,7 @@ def dBFS(x):
 
 ###############################################################################
 FFTCHUNK = 256
-CHUNK = 128  #
-OVERLAPS = 4  #
+CHUNK = 64  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
@@ -46,18 +45,10 @@ stream = p.open(format=SAMPLE_FORMAT,
                 stream_callback=callback)
 
 curr_chunk = np.zeros(FFTCHUNK)
-OL_IDX = FFTCHUNK / OVERLAPS
-print(OL_IDX)
 start = time.time()
 try:
     while True:
-        frame = frames.get()
-        curr_chunk = np.concatenate([curr_chunk[OL_IDX:], frame[:OL_IDX]])
-        for k, idx in enumerate(fidx):
-            fourier_data = scipy.fftpack.fft(curr_chunk)
-            bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
-                                           axis=-1)))
-        curr_chunk = np.concatenate([curr_chunk[OL_IDX:], frame[OL_IDX:]])
+        curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
         for k, idx in enumerate(fidx):
             fourier_data = scipy.fftpack.fft(curr_chunk)
             bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
