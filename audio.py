@@ -25,9 +25,6 @@ fidx = []
 for cf in OC_BANDS:
     fidx.append(np.where((F >= cf / np.sqrt(2)) & (F <= cf * np.sqrt(2))))
 bands = np.zeros(OC_BANDS.shape)
-print(fidx)
-
-frames = Queue()
 
 
 def callback(in_data, frame_count, time_info, status):
@@ -45,6 +42,7 @@ stream = p.open(format=SAMPLE_FORMAT,
                 stream_callback=callback)
 
 os.system("printf '\033c'")
+frames = Queue()
 curr_chunk = np.zeros(FFTCHUNK)
 start = time.time()
 try:
@@ -60,20 +58,13 @@ try:
             delay = frames.qsize() * CHUNK
             print("\ncurrent delay: %.1f ms" %
                   (frames.qsize() * CHUNK / FS * 1000))
-            print(bands.round(decimals=2))
+            print("band energy:\n\t%s" % str(bands.round(decimals=2)))
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
     p.terminate()
-    print("\n")
-    print("queue size")
-    q = frames.qsize()
-    print(q)
-    print("current delay")
-    print(q * float(CHUNK) / FS)
     print("elapsed time:")
     print((time.time() - start))
-
     frames.close()
     print("ende wie der chris")
     quit()
