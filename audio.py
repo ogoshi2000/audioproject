@@ -44,7 +44,7 @@ stream = p.open(format=SAMPLE_FORMAT,
                 input=True,
                 stream_callback=callback)
 
-os.system('clear')
+os.system("printf '\033c'")
 curr_chunk = np.zeros(FFTCHUNK)
 start = time.time()
 try:
