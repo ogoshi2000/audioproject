@@ -57,6 +57,7 @@ try:
         if int(time.time() - start) == 30:
             start = time.time()
             print(frames.qsize() * float(CHUNK) / FS)
+            print(bands)
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
