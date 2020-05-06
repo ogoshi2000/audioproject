@@ -1,6 +1,5 @@
 from __future__ import division
-from ctypes import c_char_p, c_int, CFUNCTYPE, cdll
-from contextlib import contextmanager
+import os
 import pyaudio
 import time
 import numpy as np
@@ -37,34 +36,15 @@ def callback(in_data, frame_count, time_info, status):
     return (in_data, pyaudio.paContinue)
 
 
-ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int,
-                               c_char_p)
+p = pyaudio.PyAudio()
+stream = p.open(format=SAMPLE_FORMAT,
+                channels=CHANNELS,
+                rate=FS,
+                frames_per_buffer=CHUNK,
+                input=True,
+                stream_callback=callback)
 
-
-def py_error_handler(filename, line, function, err, fmt):
-    pass
-
-
-c_error_handler = ERROR_HANDLER_FUNC(py_error_handler)
-
-
-@contextmanager
-def noalsaerr():
-    asound = cdll.LoadLibrary('libasound.so')
-    asound.snd_lib_error_set_handler(c_error_handler)
-    yield
-    asound.snd_lib_error_set_handler(None)
-
-
-with noalsaerr():
-    p = pyaudio.PyAudio()
-    stream = p.open(format=SAMPLE_FORMAT,
-                    channels=CHANNELS,
-                    rate=FS,
-                    frames_per_buffer=CHUNK,
-                    input=True,
-                    stream_callback=callback)
-
+os.system('clear')
 curr_chunk = np.zeros(FFTCHUNK)
 start = time.time()
 try:
