@@ -12,8 +12,8 @@ def dBFS(x):
 
 
 ###############################################################################
-FFTCHUNK = 512
-CHUNK = 128  #
+FFTCHUNK = 256
+CHUNK = 64  #
 SAMPLE_FORMAT = pyaudio.paInt16  #
 CHANNELS = 1  #
 FS = 48000  #
@@ -51,8 +51,9 @@ try:
         curr_chunk = np.concatenate([curr_chunk[CHUNK:], frames.get()])
         for k, idx in enumerate(fidx):
             fourier_data = scipy.fftpack.fft(curr_chunk)
-            bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
-                                           axis=-1)))
+            bands = np.zeros(8)
+            #bands[k] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2,
+            #                               axis=-1)))
 
         if int(time.time() - start) == 30:
             start = time.time()
