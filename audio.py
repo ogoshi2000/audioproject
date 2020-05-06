@@ -3,6 +3,7 @@ import numpy as np
 import time
 from multiprocessing import Queue
 import scipy.fftpack
+from __future__ import division
 
 
 def dBFS(x):
@@ -55,9 +56,10 @@ try:
 
         if int(time.time() - start) == 30:
             start = time.time()
-            print("\ncurrent delay: %.1f ms" % float(frames.qsize()) * float(CHUNK) /
-                  FS * 1000.)
-            print(bands, round(decimals=2))
+            delay = frames.qsize() * CHUNK
+            print("\ncurrent delay: %.1f ms" % frames.qsize() * CHUNK / FS *
+                  1000)
+            print(bands.round(decimals=2))
 except KeyboardInterrupt:
     stream.stop_stream()
     stream.close()
