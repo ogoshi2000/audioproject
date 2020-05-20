@@ -15,7 +15,7 @@ led_channel.duty_cycle = 0
 
 while True:
     for i in range(255):
-        led_channel.duty_cycle = i
+        led_channel.duty_cycle = i**2
 
     for i in range(255, 0, -1):
-        led_channel.duty_cycle = i
+        led_channel.duty_cycle = i**2
