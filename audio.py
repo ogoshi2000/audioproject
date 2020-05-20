@@ -16,7 +16,6 @@ led_channel.duty_cycle = 0
 while True:
     for i in range(255):
         led_channel.duty_cycle = i
-        time.sleep(10/1000)
+
     for i in range(255, 0, -1):
         led_channel.duty_cycle = i
-        time.sleep(10/1000)
