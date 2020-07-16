@@ -61,7 +61,7 @@ while True:
     for i, idx in enumerate(fidx):
         bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
     
-    val_old = val[:]
+    val_old = val
     for i,v in enumerate(val):
         v = min(max(100,(bands[i]-55) * (2**(16)-1)/16),2**16-1)
         if v==100:
