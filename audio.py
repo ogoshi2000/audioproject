@@ -13,7 +13,7 @@ hat.frequency=1500
 led_channel=[]
 
 for i in range(8):
-    led_channel[i]=hat.channel[i]
+    led_channel[i]=hat.channels[i]
 
 print(led_channel)
 
