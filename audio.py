@@ -70,7 +70,7 @@ while True:
         if v==100:
             v = val_old[i]
 
-    for i,c in led_channel:
+    for i,c in enumerate(led_channel):
         c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
     print(int(val[5]))
 
