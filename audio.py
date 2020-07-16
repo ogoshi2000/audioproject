@@ -66,8 +66,8 @@ while True:
     val_old = val
     for i,v in enumerate(val):
         v = min(max(100,(bands[i]-55) * (2**(16)-1)/16),2**16-1)
-        if v==100:
-            v = val_old[i]
+        #if v==100:
+            #v = val_old[i]
 
     for i,c in enumerate(led_channel):
         c.duty_cycle = int(  (val[i-1]-100)**2/(2**16 -1)  )
