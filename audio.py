@@ -65,7 +65,7 @@ while True:
     
     val_old = val
     for i,v in enumerate(val):
-        val[i]= min(max(100,(bands[i]-25) * (2**(16)-1)/16),2**16-1)
+        val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #if v==100:
             #v = val_old[i]
 
