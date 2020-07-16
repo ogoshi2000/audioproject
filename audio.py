@@ -10,7 +10,7 @@ i2c = busio.I2C(board.SCL, board.SDA)
 hat = adafruit_pca9685.PCA9685(i2c)
 
 hat.frequency=1500
-led_channel = hat.channels
+led_channel = hat.channels[:8]
 print(led_channel)
 
 for c in led_channel:
