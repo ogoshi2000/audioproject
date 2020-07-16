@@ -11,10 +11,11 @@ hat = adafruit_pca9685.PCA9685(i2c)
 
 time.sleep(3)
 hat.frequency=1500
-led_channels=hat.channels[:8]
+led_channels=hat.channels
 
-for c in led_channels:
-    c.duty_cycle=0
+for i in range(8):
+    led_channel=[]
+    led_channel.append(led_channels[i])
 
 
 def dBFS(x):
@@ -68,7 +69,7 @@ while True:
         if v==100:
             v = val_old[i]
 
-    for i,c in enumerate(led_channels):
+    for i,c in enumerate(led_channel):
         c.duty_cycle = int(  (val[i-1]-100)**2/(2**16 -1)  )
     print(val)
 
