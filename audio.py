@@ -9,9 +9,10 @@ import adafruit_pca9685
 i2c = busio.I2C(board.SCL, board.SDA)
 hat = adafruit_pca9685.PCA9685(i2c)
 
+time.sleep(3)
 hat.frequency=1500
 
-for c in hat.channels[:8]:
+for c in hat.channels:
     c.duty_cycle=0
 
 
