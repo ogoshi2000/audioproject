@@ -10,15 +10,8 @@ i2c = busio.I2C(board.SCL, board.SDA)
 hat = adafruit_pca9685.PCA9685(i2c)
 
 hat.frequency=1500
-led_channel=[]
 
-for i in range(8):
-    print(len(hat.channels))
-    #led_channel[i]=hat.channels[i]
-
-print(led_channel)
-
-for c in led_channel:
+for c in hat.channels[:8]:
     c.duty_cycle=0
 
 
@@ -57,8 +50,6 @@ stream = p.open(format=sample_format,
 # mx2 = 80
 
 val = [100,100,100,100,100,100,100,100]
-for c in led_channel:
-    c.duty_cycle=0
 
 while True:
                 
@@ -75,7 +66,7 @@ while True:
         if v==100:
             v = val_old[i]
 
-    for i,c in enumerate(led_channel):
+    for i,c in enumerate(hat.channels[:8]):
         c.duty_cycle = int(  (val[i-1]-100)**2/(2**16 -1)  )
     print(int(val[5]))
 
