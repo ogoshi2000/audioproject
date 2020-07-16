@@ -66,6 +66,7 @@ while True:
     val_old = val
     for i,v in enumerate(val):
         val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
+        val[i] = (val[i]-21000)/(50000-21000)*(2**(16)-1)
         #if v==100:
             #v = val_old[i]
 
@@ -73,7 +74,7 @@ while True:
         c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
     print(val)
 
-    # ax1.clear()
+    # ax1.clear() 
     # ax1.plot(data)
     # ax1.set_ylim([-mx1, mx1])
     # ax1.grid(b=True)
