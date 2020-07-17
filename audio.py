@@ -68,7 +68,7 @@ while True:
     
     val_old = val
     for i,v in enumerate(val):
-        val[i] = (bands[i]-2600)/(25000000-2600)
+        val[i] = int( (bands[i]-2600)/(25000000-2600) *1000)/1000
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
         #if v==100:
@@ -77,7 +77,7 @@ while True:
     for i,c in enumerate(led_channel):
         #c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
         c.duty_cycle = int(  0  )
-    print(int(val*100)/100)
+    print(val)
 
     # ax1.clear() 
     # ax1.plot(data)
