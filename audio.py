@@ -21,8 +21,8 @@ def dBFS(x):
     return 10*np.log10(x)
 
 
-chunk = 1024 # Record in chunks of 1024 samples
-fft_chunk = 1024
+chunk = 512 # Record in chunks of 1024 samples
+fft_chunk = 512
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 fs = 48000  # Record at 44100 samples per second
@@ -68,6 +68,9 @@ while True:
     val_old = val
     for i,v in enumerate(val):
         val[i] = min(max(int( ( (bands[i]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
+        sc = 2
+        val[i] = (np.exp(val[i]*sc)-1)/(np.exp(sc)-1)
+
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
         #if v==100:
