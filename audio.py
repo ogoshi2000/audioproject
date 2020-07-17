@@ -75,7 +75,8 @@ while True:
             #v = val_old[i]
 
     for i,c in enumerate(led_channel):
-        c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
+        #c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
+        c.duty_cycle = int(  0  )
     print(val)
 
     # ax1.clear() 
