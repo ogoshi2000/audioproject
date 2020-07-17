@@ -21,8 +21,8 @@ def dBFS(x):
     return 10*np.log10(x)
 
 
-chunk = 256 # Record in chunks of 1024 samples
-fft_chunk = 256
+chunk = 1024 # Record in chunks of 1024 samples
+fft_chunk = 1024
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 fs = 48000  # Record at 44100 samples per second
@@ -76,7 +76,7 @@ while True:
     for i,c in enumerate(led_channel):
         c.duty_cycle = int(  val[i] * (2**(16)-1) )
 
-    #print(val)
+    print(val)
 
     # ax1.clear() 
     # ax1.plot(data)
