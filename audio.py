@@ -61,7 +61,10 @@ while True:
     fourier_data = np.fft.rfft(data)
 
     for i, idx in enumerate(fidx):
-        bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
+        # dBFS
+        #bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
+        # no logarithm
+        bands[i] = (np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
     
     val_old = val
     for i,v in enumerate(val):
