@@ -68,7 +68,9 @@ while True:
     val_old = val
     for i,v in enumerate(val):
         val[i] = min(max(int( ( (bands[i]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
-        sc = 2
+
+        # exponential curve correction
+        sc = 1.8
         val[i] = (np.exp(val[i]*sc)-1)/(np.exp(sc)-1)
 
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
