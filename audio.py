@@ -77,7 +77,7 @@ while True:
     for i,c in enumerate(led_channel):
         #c.duty_cycle = int(  (val[i]-100)**2/(2**16 -1)  )
         c.duty_cycle = int(  0  )
-    print(val)
+    print(int(val*100)/100)
 
     # ax1.clear() 
     # ax1.plot(data)
