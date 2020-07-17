@@ -13,10 +13,9 @@ time.sleep(3)
 hat.frequency=1500
 led_channels=hat.channels
 
+led_channel=[]
 for i in range(8):
-    led_channel=[]
     led_channel.append(led_channels[i])
-
 
 def dBFS(x):
     return 10*np.log10(x)
