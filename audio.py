@@ -71,7 +71,7 @@ while True:
 
         # exponential curve correction
         sc = 1.8
-        val[i] = (np.exp(val[i]*sc)-1)/(np.exp(sc)-1)
+        val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.1 ,1)
 
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
