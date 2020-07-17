@@ -21,8 +21,8 @@ def dBFS(x):
     return 10*np.log10(x)
 
 
-chunk = 512 # Record in chunks of 1024 samples
-fft_chunk = 512
+chunk = 256 # Record in chunks of 1024 samples
+fft_chunk = 256
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 fs = 48000  # Record at 44100 samples per second
@@ -71,7 +71,7 @@ while True:
 
         # exponential curve correction
         sc = 1.8
-        val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.1 ,1)
+        val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.3 ,1)
 
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
