@@ -11,11 +11,8 @@ hat = adafruit_pca9685.PCA9685(i2c)
 
 time.sleep(3)
 hat.frequency=1500
-led_channels=hat.channels
+led_channel=hat.channels
 
-led_channel=[]
-for i in range(8):
-    led_channel.append(led_channels[i])
 
 def dBFS(x):
     return 10*np.log10(x)
@@ -51,7 +48,7 @@ stream = p.open(format=sample_format,
 # mx1 = 20000
 # mx2 = 80
 
-val = [100,100,100,100,100,100,100,100]
+val = [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100]
 
 while True:
                 
@@ -67,7 +64,8 @@ while True:
     
     val_old = val
     for i,v in enumerate(val):
-        val[i] = min(max(int( ( (bands[i]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
+        # channel chaining setup i%8
+        val[i] = min(max(int( ( (bands[i%8]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
 
         # exponential curve correction
         sc = 1.8
