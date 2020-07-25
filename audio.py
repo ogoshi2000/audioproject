@@ -61,7 +61,7 @@ while True:
         # dBFS
         #bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
         # no logarithm
-        bands[i] = (np.sqrt(np.sum(abs(fourier_data[0])**2, axis=-1))) # change 0 back to idx
+        bands[i] = (np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1))) # change 0 back to idx
     
     val_old = val
     for i,v in enumerate(val):
