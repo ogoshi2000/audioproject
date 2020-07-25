@@ -68,7 +68,7 @@ while True:
         # channel chaining setup i%8
         val[i] = min(max(int( ( (bands[i%8]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
 
-        if val[i] < val_old[i]*release:
+        if val[i] <= val_old[i]*release:
             val[i] = release * val_old[i]
 
         # exponential curve correction
