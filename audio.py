@@ -49,7 +49,7 @@ stream = p.open(format=sample_format,
 # mx2 = 80
 
 val = [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100]
-release = 0.95
+release = 0.99
 
 while True:
                 
