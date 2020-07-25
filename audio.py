@@ -68,12 +68,14 @@ while True:
         # channel chaining setup i%8
         val[i] = min(max(int( ( (bands[i%8]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
 
+        if val[i] < val_old[i]*release:
+            val[i] = release * val_old[i]
+
         # exponential curve correction
         sc = 1.8
         val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.3 ,1)
 
-        if val[i] < val_old[i]*release:
-            val[i] = release * val_old[i]
+        
 
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
