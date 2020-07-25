@@ -49,6 +49,7 @@ stream = p.open(format=sample_format,
 # mx2 = 80
 
 val = [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100]
+release = 0.95
 
 while True:
                 
@@ -60,7 +61,7 @@ while True:
         # dBFS
         #bands[i] = dBFS(np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
         # no logarithm
-        bands[i] = (np.sqrt(np.sum(abs(fourier_data[idx])**2, axis=-1)))
+        bands[i] = (np.sqrt(np.sum(abs(fourier_data[0])**2, axis=-1))) # change 0 back to idx
     
     val_old = val
     for i,v in enumerate(val):
@@ -71,10 +72,14 @@ while True:
         sc = 1.8
         val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.3 ,1)
 
+        if val[i] < val_old[i]*release:
+            val[i] = release * val_old[i]
+
         #val[i]= min(max(100,(bands[i]) * (2**(16)-1)/100),2**16-1)
         #val[i] = (val[i]-24000)/(498000-24000)*(2**(16)-1)
         #if v==100:
             #v = val_old[i]
+
 
     for i,c in enumerate(led_channel):
         c.duty_cycle = int(  val[i] * (2**(16)-1) )
