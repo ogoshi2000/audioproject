@@ -49,7 +49,8 @@ stream = p.open(format=sample_format,
 # mx2 = 80
 
 val = [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100]
-release = 1
+release = 0.5
+sc = 1.8
 
 while True:
                 
@@ -69,10 +70,9 @@ while True:
         val[i] = min(max(int( ( (bands[i%8]*(2048/chunk)) - 2600)/(25000000-2600) *1000)/1000 , 0),1)
 
         if val[i] <= val_old[i]*release:
-            val[i] = release * val_old[i]
+            val[i] = release * val_old[i] + (1-release) * val[i]
 
         # exponential curve correction
-        sc = 1.8
         val[i] = min((np.exp(val[i]*sc)-1)/(np.exp(sc)-1) * 1.3 ,1)
 
         
